@@ -1,0 +1,512 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.14.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 18, 2017 at 08:55 AM
+-- Server version: 5.5.42
+-- PHP Version: 5.6.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `profile_by_nattarin`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_list`
+--
+
+CREATE TABLE IF NOT EXISTS `access_list` (
+  `access_key` char(32) NOT NULL,
+  `access_name` varchar(256) NOT NULL,
+  `access_detail` text NOT NULL,
+  `access_class` int(11) NOT NULL,
+  `access_status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `access_list`
+--
+
+INSERT INTO `access_list` (`access_key`, `access_name`, `access_detail`, `access_class`, `access_status`) VALUES
+('0a3c8aabc6cdbce67a157ba1701b3fa9', 'รายงาน', 'รายงาน', 0, 1),
+('295744c466c17b46170f88b5c1b9104d', 'ข่าวสาร', 'ข่าวสาร', 0, 1),
+('7fea6fea61143d1fcb188f3080ecc446', 'ผู้ดูแลระบบ', 'ผู้ดูแลระบบ', 0, 1),
+('f1344bc0fb9c5594fa0e3d3f37a56957', 'ข้อมูลนักเรียน', 'ข้อมูลนักเรียน', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access_user`
+--
+
+CREATE TABLE IF NOT EXISTS `access_user` (
+  `access_key` char(32) NOT NULL,
+  `user_key` char(32) NOT NULL,
+  `access_status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backup_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `backup_logs` (
+  `backup_key` varchar(32) NOT NULL,
+  `backup_file` varchar(256) NOT NULL,
+  `backup_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_key` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `categories_key` char(32) NOT NULL,
+  `categories_name` varchar(128) NOT NULL,
+  `categories_status` tinyint(1) NOT NULL,
+  `categories_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`categories_key`, `categories_name`, `categories_status`, `categories_insert`) VALUES
+('2870d771b1b9e340ef5f4a0365e5a47e', 'ไม่มีกลุ่ม', 1, '2016-03-24 13:08:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `field_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `field_detail` (
+  `fd_key` char(32) NOT NULL,
+  `fh_key` varchar(32) NOT NULL,
+  `fd_title` varchar(128) NOT NULL,
+  `fd_value` varchar(128) NOT NULL,
+  `fd_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `field_header`
+--
+
+CREATE TABLE IF NOT EXISTS `field_header` (
+  `fh_key` char(32) NOT NULL,
+  `fh_name` varchar(128) NOT NULL,
+  `fh_title` varchar(128) NOT NULL,
+  `fh_type` tinyint(1) NOT NULL,
+  `fh_length` int(11) NOT NULL,
+  `fh_status` tinyint(1) NOT NULL,
+  `fh_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `language`
+--
+
+CREATE TABLE IF NOT EXISTS `language` (
+  `language_code` varchar(16) NOT NULL,
+  `language_name` varchar(32) NOT NULL,
+  `language_status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `language`
+--
+
+INSERT INTO `language` (`language_code`, `language_name`, `language_status`) VALUES
+('th', 'ภาษาไทย', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `list`
+--
+
+CREATE TABLE IF NOT EXISTS `list` (
+  `cases` varchar(64) NOT NULL,
+  `menu` varchar(64) NOT NULL,
+  `pages` varchar(128) NOT NULL,
+  `case_status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `list`
+--
+
+INSERT INTO `list` (`cases`, `menu`, `pages`, `case_status`) VALUES
+('setting', 'setting', 'settings/setting.php', 1),
+('member', 'member', 'members/member.php', 1),
+('cashier', 'cashier', 'cashier/cashier.php', 1),
+('report', 'report', 'report/report.php', 1),
+('report_export', 'report', 'report/report_export.php', 1),
+('report_movement', 'report', 'report/report_movement.php', 1),
+('report_income', 'report', 'report/report_income.php', 1),
+('report_income_detail', 'report', 'report/report_income_detail.php', 1),
+('report_booking', 'report', 'report/report_booking.php', 1),
+('report_logs', 'report', 'report/report_logs.php', 1),
+('report_delivery', 'report', 'report/report_delivery.php', 1),
+('report_delivery_detail', 'report', 'report/report_delivery_detail.php', 1),
+('setting_users', 'setting', 'settings/setting_users.php', 1),
+('setting_backup', 'setting', 'settings/setting_backup.php', 1),
+('setting_unit', 'setting', 'settings/setting_unit.php', 0),
+('setting_categories', 'setting', 'settings/setting_categories.php', 1),
+('setting_member_group', 'setting', 'settings/setting_member_group.php', 1),
+('setting_promotions', 'setting', 'settings/setting_promotions.php', 1),
+('report_debt', 'report', 'report/report_debt.php', 1),
+('report_creditor', 'report', 'report/report_creditor.php', 1),
+('setting_info', 'setting', 'settings/setting_info.php', 1),
+('setting_system', 'setting', 'settings/setting_system.php', 1),
+('setting_user_access', 'setting', 'settings/setting_user_access.php', 1),
+('administrator_access_list', 'setting', 'administrator/administrator_access_list.php', 1),
+('administrator_cases', 'setting', 'administrator/administrator_cases.php', 1),
+('administrator_menus', 'setting', 'administrator/administrator_menus.php', 1),
+('administrator_modules', 'setting', 'administrator/administrator_modules.php', 1),
+('administrator_helper', 'seting', 'administrator/administrator_helper.php', 1),
+('cashier_member', 'cashier', 'cashier/cashier_member.php', 1),
+('cashier_booking', 'cashier', 'cashier/cashier_booking.php', 1),
+('product_detail', 'product', 'products/product_detail.php', 1),
+('member_detail', 'member', 'members/member_detail.php', 1),
+('new_member', 'member', 'members/new_member.php', 1),
+('member_history', 'member', 'members/member_history.php', 1),
+('setting_promotion_member', 'setting', 'settings/setting_promotion_member.php', 1),
+('report_cancel', 'report', 'report/report_cancel.php', 1),
+('card_all_status', 'card', 'card/card_all_status.php', 1),
+('search', '', 'main/search.php', 1),
+('card', 'card', 'card/card.php', 1),
+('setting_card_status', 'setting', 'settings/setting_card_status.php', 1),
+('card_create_detail', 'card_create', 'card/card_create_detail.php', 1),
+('search_code', '', 'main/search.php', 1),
+('card_create', 'card_create', 'card/main.php', 1),
+('setting_products', 'setting', 'settings/setting_products.php', 1),
+('setting_jobs_type', 'setting', 'settings/setting_jobs_type.php', 1),
+('setting_brands', 'setting', 'settings/setting_brands.php', 1),
+('setting_models', 'setting', 'settings/setting_models.php', 1),
+('setting_products_type', 'setting', 'settings/setting_products_type.php', 1),
+('setting_employees', 'setting', 'settings/setting_employees.php', 1),
+('edit_jobs', 'card', 'card/edit_jobs.php', 1),
+('jobs', 'card_create', 'card/jobs.php', 1),
+('create', 'create', 'create/main.php', 1),
+('news', 'news', 'news/main.php', 1),
+('about', 'setting', 'settings/about.php', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE IF NOT EXISTS `logs` (
+  `log_key` varchar(16) NOT NULL,
+  `log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `log_ipaddress` varchar(32) NOT NULL,
+  `log_text` varchar(256) NOT NULL,
+  `log_user` varchar(32) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `members`
+--
+
+CREATE TABLE IF NOT EXISTS `members` (
+  `member_key` char(32) NOT NULL,
+  `member_group` varchar(32) NOT NULL,
+  `member_code` varchar(32) NOT NULL,
+  `member_prefix` varchar(16) NOT NULL,
+  `member_name` varchar(64) NOT NULL,
+  `member_lastname` varchar(64) NOT NULL,
+  `member_address` text NOT NULL,
+  `member_phone` varchar(32) NOT NULL,
+  `member_email` varchar(128) NOT NULL,
+  `member_note` text NOT NULL,
+  `member_status` tinyint(1) NOT NULL,
+  `member_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `members_prefix`
+--
+
+CREATE TABLE IF NOT EXISTS `members_prefix` (
+  `prefix_key` varchar(32) NOT NULL,
+  `prefix_code` varchar(16) NOT NULL,
+  `prefix_title` varchar(64) NOT NULL,
+  `prefix_status` tinyint(1) NOT NULL,
+  `prefix_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `members_prefix`
+--
+
+INSERT INTO `members_prefix` (`prefix_key`, `prefix_code`, `prefix_title`, `prefix_status`, `prefix_insert`) VALUES
+('00d3ee50b62c10ee1f590819a045ea47', '3', 'นาย', 1, '2017-02-15 16:22:28'),
+('2f9f2c0fc106a86ea7cb3bca1a28de00', '4', 'นางสาว', 1, '2017-02-15 16:22:46'),
+('383182292551e50872fd81907f1406a7', '2', 'เด็กหญิง', 1, '2017-02-15 16:21:19'),
+('73a839c50e210771fe3867c0a7907b4b', '1', 'เด็กชาย', 1, '2017-02-15 16:20:09'),
+('b69fcedf741f32260fb2323fe8fdc9dc', '5', 'นาง', 1, '2017-02-15 16:22:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menus`
+--
+
+CREATE TABLE IF NOT EXISTS `menus` (
+  `menu_key` char(32) NOT NULL,
+  `menu_upkey` char(32) NOT NULL,
+  `menu_icon` varchar(256) NOT NULL,
+  `menu_name` varchar(128) NOT NULL,
+  `menu_case` varchar(128) NOT NULL,
+  `menu_link` varchar(256) NOT NULL,
+  `menu_status` tinyint(1) NOT NULL,
+  `menu_sorting` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `menus`
+--
+
+INSERT INTO `menus` (`menu_key`, `menu_upkey`, `menu_icon`, `menu_name`, `menu_case`, `menu_link`, `menu_status`, `menu_sorting`) VALUES
+('0a3c8aabc6cdbce67a157ba1701b3fa9', '0a3c8aabc6cdbce67a157ba1701b3fa9', '<i class="fa fa-pie-chart fa-fw"></i>', 'LA_MN_REPORT', 'report', '?p=report', 1, 8),
+('2309e0cdb2c541bf7cb8ef0dee7b7eba', '2309e0cdb2c541bf7cb8ef0dee7b7eba', '<i class="fa fa-gear  fa-fw"></i>', 'LA_MN_SETTING', 'setting', '?p=setting', 1, 9),
+('295744c466c17b46170f88b5c1b9104d', '295744c466c17b46170f88b5c1b9104d', '<i class="fa fa-newspaper-o fa-fw"></i>', 'ข่าวสาร', 'news', '?p=news', 1, 4),
+('a16043256ea5ca0ea86995e2b69ec238', 'a16043256ea5ca0ea86995e2b69ec238', '<i class="fa fa-home fa-fw"></i>', 'LA_MN_HOME', '', 'index.php', 1, 1),
+('c6c8729b45d1fec563f8453c16ff03b8', 'c6c8729b45d1fec563f8453c16ff03b8', '<i class="fa fa-lock fa-fw"></i>', 'LA_MN_LOGOUT', 'logout', '../core/logout.core.php', 1, 10),
+('f1344bc0fb9c5594fa0e3d3f37a56957', 'f1344bc0fb9c5594fa0e3d3f37a56957', '<i class="fa fa-address-book-o fa-fw"></i>', 'ข้อมูลนักเรียน', 'member', '?p=member', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `news_key` char(32) NOT NULL,
+  `news_title` varchar(128) NOT NULL,
+  `news_detail` text NOT NULL,
+  `news_status` tinyint(1) NOT NULL,
+  `user_key` varchar(32) NOT NULL,
+  `news_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slideshow`
+--
+
+CREATE TABLE IF NOT EXISTS `slideshow` (
+  `slide_key` char(32) NOT NULL,
+  `slide_file` varchar(256) NOT NULL,
+  `slide_link` text NOT NULL,
+  `slide_sorting` int(1) NOT NULL,
+  `slide_status` tinyint(1) NOT NULL,
+  `slide_insert` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `slideshow`
+--
+
+INSERT INTO `slideshow` (`slide_key`, `slide_file`, `slide_link`, `slide_sorting`, `slide_status`, `slide_insert`) VALUES
+('65ce283e3ed40421e1c3f1cadbe0e392', 'slide_2.jpg', '', 3, 1, '2017-02-18 03:59:11'),
+('7098e8f1094149d6253083dbcecc758f', 'slide_1.jpg', 'https://nattarin.com/profile', 1, 1, '2017-02-18 03:47:04'),
+('ae8e2103e1511e0d4f6ed0612b2be44c', 'slide_3.jpg', '', 2, 1, '2017-02-18 03:59:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system_font_size`
+--
+
+CREATE TABLE IF NOT EXISTS `system_font_size` (
+  `font_key` char(32) NOT NULL,
+  `font_name` varchar(128) NOT NULL,
+  `font_size_text` text NOT NULL,
+  `font_status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `system_font_size`
+--
+
+INSERT INTO `system_font_size` (`font_key`, `font_name`, `font_size_text`, `font_status`) VALUES
+('6c3ca25445248c1dff79d51ad9fa4082', '14px', 'font-size:14px;', 1),
+('74af75636b4e933684d63b617c97f398', '24px', 'font-size:24px;', 1),
+('bffeb9ae0d04ffc7affc3701f9858932', '22px', 'font-size:22px;', 1),
+('dd7e28065e654467be0f9c16f3bd987d', '16px', 'font-size:16px;', 1),
+('e215155479796a0bdcad2326ffca09c7', '18px', 'font-size:18px;', 1),
+('ff9ec5b758824e67edcf5ecc7e635f6f', '20px', 'font-size:20px;', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system_info`
+--
+
+CREATE TABLE IF NOT EXISTS `system_info` (
+  `site_key` char(32) NOT NULL,
+  `site_logo` varchar(256) NOT NULL,
+  `site_favicon` varchar(256) NOT NULL,
+  `time_zone` varchar(128) NOT NULL,
+  `year_type` varchar(16) NOT NULL,
+  `year_format` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `system_info`
+--
+
+INSERT INTO `system_info` (`site_key`, `site_logo`, `site_favicon`, `time_zone`, `year_type`, `year_format`) VALUES
+('8f411b77c389d5de467af8f2c0e91cda', 'logo.png', 'icon.png', 'Asia/Bangkok', 'BE', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_key` char(32) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `lastname` varchar(64) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `user_photo` varchar(128) NOT NULL DEFAULT 'noimg.jpg',
+  `user_class` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=user,2=admin,3=super admin',
+  `bed_view` varchar(64) NOT NULL DEFAULT 'box_view',
+  `user_language` varchar(8) NOT NULL DEFAULT 'th',
+  `system_font_size` varchar(32) NOT NULL DEFAULT 'dd7e28065e654467be0f9c16f3bd987d',
+  `email` varchar(128) NOT NULL,
+  `user_status` tinyint(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_online`
+--
+
+CREATE TABLE IF NOT EXISTS `user_online` (
+  `osession` varchar(128) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `user_key` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `otime` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `access_list`
+--
+ALTER TABLE `access_list`
+  ADD PRIMARY KEY (`access_key`);
+
+--
+-- Indexes for table `backup_logs`
+--
+ALTER TABLE `backup_logs`
+  ADD PRIMARY KEY (`backup_key`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`categories_key`);
+
+--
+-- Indexes for table `field_detail`
+--
+ALTER TABLE `field_detail`
+  ADD PRIMARY KEY (`fd_key`);
+
+--
+-- Indexes for table `field_header`
+--
+ALTER TABLE `field_header`
+  ADD PRIMARY KEY (`fh_key`);
+
+--
+-- Indexes for table `language`
+--
+ALTER TABLE `language`
+  ADD PRIMARY KEY (`language_code`);
+
+--
+-- Indexes for table `list`
+--
+ALTER TABLE `list`
+  ADD PRIMARY KEY (`cases`);
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`member_key`);
+
+--
+-- Indexes for table `members_prefix`
+--
+ALTER TABLE `members_prefix`
+  ADD PRIMARY KEY (`prefix_key`);
+
+--
+-- Indexes for table `menus`
+--
+ALTER TABLE `menus`
+  ADD PRIMARY KEY (`menu_key`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_key`);
+
+--
+-- Indexes for table `slideshow`
+--
+ALTER TABLE `slideshow`
+  ADD PRIMARY KEY (`slide_key`);
+
+--
+-- Indexes for table `system_info`
+--
+ALTER TABLE `system_info`
+  ADD PRIMARY KEY (`site_key`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_key`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
